@@ -1,22 +1,23 @@
 package main
 
+import "fmt"
+
 func main() {
-	println(lengthOfLongestSubstring("pwwkew"))
+	fmt.Println(lengthOfLongestSubstring("ABCdf"))
 }
 
 func lengthOfLongestSubstring(s string) int {
 	m := map[byte]int{}
 	maxLen := 0
 	l, r := 0, 0
-
 	for r < len(s) {
-		_, ok := m[s[r]]
+		tmp, ok := m[s[r]]
 		if !ok {
-			m[s[r]] = 1
+			m[s[r]] = r
 			r++
 		} else {
 			delete(m, s[l])
-			l++
+			l = tmp + 1
 		}
 		maxLen = max(maxLen, r-l)
 	}
